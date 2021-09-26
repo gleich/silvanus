@@ -8,6 +8,7 @@ import (
 	"github.com/shurcooL/githubv4"
 )
 
+// Outline for a repo from GitHub
 type Repo struct {
 	Description   string
 	NameWithOwner string
