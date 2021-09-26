@@ -1,6 +1,8 @@
 build:
-	go get -v -t -d ./...
-	go build -v .
+	go build -v -o bin/ .
+
+test:
+	go test -v ./...
 
 lint: lint-golangci lint-gomod
 
@@ -14,11 +16,3 @@ lint-gomod:
 	go mod tidy
 	git diff --exit-code go.mod
 	git diff --exit-code go.sum
-
-#########
-# Testing
-#########
-
-test-go:
-	go test -v ./...
-
