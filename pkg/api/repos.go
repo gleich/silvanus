@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gleich/lumber/v2"
 	"github.com/gleich/silvanus/pkg/ask"
@@ -17,10 +18,10 @@ type Repo struct {
 
 // Get repos that belong to the user
 func Repos(log lumber.Logger, client *githubv4.Client, opts ask.Opts) ([]Repo, error) {
+	fmt.Println()
 	log.Info("Getting repos you belong to")
 
 	repos := []Repo{}
-	total := 0
 	variables := map[string]interface{}{
 		"cursor":  (*githubv4.String)(nil),
 		"privacy": (*githubv4.RepositoryPrivacy)(nil),
@@ -47,16 +48,14 @@ func Repos(log lumber.Logger, client *githubv4.Client, opts ask.Opts) ([]Repo, e
 		}
 		variables["cursor"] = githubv4.NewString(data.Viewer.Repositories.PageInfo.EndCursor)
 
-		new := len(data.Viewer.Repositories.Nodes)
-		total += new
-		log.Success("Added", new, "repos. Total is now", total)
+		repos = append(repos, data.Viewer.Repositories.Nodes...)
+		log.Info("Added", len(data.Viewer.Repositories.Nodes), "repos. Total is now", len(repos))
 
 		if !data.Viewer.Repositories.PageInfo.HasNextPage {
-			log.Info("Reached final page of data")
 			break
 		}
 	}
 
-	log.Success("Got data for", total, "repos")
+	log.Success("Got data for", len(repos), "repos")
 	return repos, nil
 }

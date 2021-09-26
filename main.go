@@ -24,8 +24,13 @@ func main() {
 
 	client := api.NewClient(token)
 
-	_, err = api.Repos(log, client, opts)
+	repos, err := api.Repos(log, client, opts)
 	if err != nil {
 		log.Fatal(err, "Failed to get data for repos")
+	}
+
+	err = ask.ConfirmGen(log, len(repos))
+	if err != nil {
+		log.Fatal(err, "Failed to confirm with user about generation of animation")
 	}
 }
