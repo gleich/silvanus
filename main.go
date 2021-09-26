@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gleich/lumber/v2"
+	"github.com/gleich/silvanus/pkg/animation"
 	"github.com/gleich/silvanus/pkg/api"
 	"github.com/gleich/silvanus/pkg/ask"
 )
@@ -32,5 +33,10 @@ func main() {
 	err = ask.ConfirmGen(log, len(repos))
 	if err != nil {
 		log.Fatal(err, "Failed to confirm with user about generation of animation")
+	}
+
+	err = animation.Prep(log)
+	if err != nil {
+		log.Fatal(err, "Failed to prep temp dir for creating the animation")
 	}
 }
