@@ -1,2 +1,3 @@
 # silvanus
-📜 Visualize all of your work on github with ease using gource
+
+📜 Visualize all of your work on GitHub with ease using gource
