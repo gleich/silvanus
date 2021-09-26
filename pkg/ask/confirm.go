@@ -6,11 +6,10 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/gleich/lumber/v2"
-	"github.com/gleich/silvanus/pkg/animation"
 )
 
 // Confirm with the user that they want to generate a gource animation using the number of repos provided
-func ConfirmGen(log lumber.Logger, repos int) error {
+func ConfirmGen(log lumber.Logger, repos int, cloneLocation string) error {
 	fmt.Println()
 	var answer bool
 	err := survey.AskOne(
@@ -25,7 +24,7 @@ The following will happen for each repo:
 
 This process could take a few minutes to a few hours depending on how many repos are being cloned and how big they are.`,
 				repos,
-				animation.CloneLocation,
+				cloneLocation,
 			),
 		},
 		&answer,
