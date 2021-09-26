@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/gleich/lumber/v2"
@@ -15,4 +16,11 @@ func main() {
 	if err != nil {
 		lumber.Fatal(err, "Failed to ask for token")
 	}
+
+	opts, err := ask.Options()
+	if err != nil {
+		lumber.Fatal(err, "Failed to ask options")
+	}
+
+	fmt.Println(opts)
 }
