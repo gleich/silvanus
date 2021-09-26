@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.2
-	github.com/gleich/lumber/v2 v2.1.1
+	github.com/gleich/lumber/v2 v2.1.2
 	github.com/shurcooL/githubv4 v0.0.0-20210922025249-6831e00d857f
 	golang.org/x/oauth2 v0.0.0-20210819190943-2bc19b11175f
 )

@@ -14,13 +14,18 @@ func main() {
 
 	token, err := ask.Token()
 	if err != nil {
-		lumber.Fatal(err, "Failed to ask for token")
+		log.Fatal(err, "Failed to ask for token")
 	}
 
-	_, err = ask.Options()
+	opts, err := ask.Options()
 	if err != nil {
-		lumber.Fatal(err, "Failed to ask options")
+		log.Fatal(err, "Failed to ask options")
 	}
 
-	api.NewClient(token)
+	client := api.NewClient(token)
+
+	_, err = api.Repos(log, client, opts)
+	if err != nil {
+		log.Fatal(err, "Failed to get data for repos")
+	}
 }
