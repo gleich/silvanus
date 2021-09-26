@@ -42,23 +42,35 @@ func main() {
 		log.Fatal(err, "Failed to prep temp dir for creating the animation")
 	}
 
+	gitPath, err := exec.LookPath("git")
+	if err != nil {
+		log.Fatal(
+			err,
+			"Failed to locate the git executable. Please make sure it's in your PATH",
+		)
+	}
+
+	gourcePath, err := exec.LookPath("gource")
+	if err != nil {
+		log.Fatal(
+			err,
+			"Failed to locate the gource executable. Please make sure it's in your PATH",
+		)
+	}
+
 	for i := 0; i < len(repos); i++ {
 		repo := repos[i]
 		fmt.Println()
 		log.Info("Generating log for", repo.NameWithOwner, fmt.Sprint(i+1, "/", len(repos)))
 
-		gitPath, err := exec.LookPath("git")
-		if err != nil {
-			log.Fatal(
-				err,
-				"Failed to locate the git executable. Please make sure it's in your PATH",
-			)
-		}
-
 		err = animation.Clone(log, repo, gitPath)
 		if err != nil {
 			log.Fatal(err, "Failed to clone", repo.NameWithOwner)
 		}
-		break
+
+		err = animation.GenLog(log, repo, i, gourcePath)
+		if err != nil {
+			log.Fatal(err, "Failed to generate log for", repo.NameWithOwner)
+		}
 	}
 }

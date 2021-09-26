@@ -12,6 +12,7 @@ import (
 // Outline for a repo from GitHub
 type Repo struct {
 	Description   string
+	Name          string
 	NameWithOwner string
 	URL           string
 }
